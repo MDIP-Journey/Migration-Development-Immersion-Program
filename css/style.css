@@ -87,15 +87,6 @@ h1, h2, h3, h4 {
   font-weight: 600;
   font-size: 0.8rem;
   color: var(--gold);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6em;
-}
-.eyebrow::before {
-  content: "";
-  width: 22px;
-  height: 1px;
-  background: var(--gold);
   display: inline-block;
 }
 
