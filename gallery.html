@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galeri: MDIP</title>
+<meta name="description" content="Galeri dokumentasi kegiatan dan mitra kelembagaan Migration and Development Immersion Program.">
+<link rel="icon" href="assets/logo-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<script>try { if (sessionStorage.getItem('mdipPageEnterAt')) document.documentElement.classList.add('page-pending'); } catch (_) {}</script>
+</head>
+<body>
+
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+<div class="page-veil"></div>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/logo-icon.png" alt="Logo MDIP">
+      <span>MDIP<small>Migration &amp; Development Immersion</small></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Beranda</a>
+      <a href="about.html">Tentang</a>
+      <a href="program.html">Program</a>
+      <a href="team.html">Tim</a>
+      <a href="gallery.html">Galeri</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Buka menu navigasi" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Beranda</a> / Galeri</div>
+      <span class="eyebrow">Galeri &amp; Log Kegiatan</span>
+      <h1>Dokumentasi kegiatan MDIP</h1>
+      <p>Placeholder galeri. Foto akan digantikan dengan foto dokumentasi asli sebelum dan selama pelaksanaan program. Klik gambar untuk melihat keterangan.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="container">
+      <div class="masonry" data-reveal>
+        <figure data-title="Academic Dialogue: UKM" data-desc="Diskusi akademik bersama Pak Andika Wahab di Universiti Kebangsaan Malaysia.">
+          <div class="ph" style="--ar: 4/5;">Academic Dialogue<br>UKM</div>
+        </figure>
+        <figure data-title="Mengajar Anak TKI" data-desc="Sesi pengajaran Bahasa Inggris di SB Muhammadiyah Kepong.">
+          <div class="ph" style="--ar: 1/1;">Community Engagement<br>Muhammadiyah Learning Centre</div>
+        </figure>
+        <figure data-title="Briefing IOM Malaysia" data-desc="Diskusi tata kelola migrasi bersama praktisi IOM.">
+          <div class="ph" style="--ar: 3/4;">Institutional Briefing<br>IOM Malaysia</div>
+        </figure>
+        <figure data-title="Historical Immersion: Melaka" data-desc="Menelusuri jejak sejarah migrasi di Kota Melaka.">
+          <div class="ph" style="--ar: 4/3;">Historical Immersion<br>Melaka</div>
+        </figure>
+        <figure data-title="Policy Dialogue: PERTIMIG" data-desc="Diskusi bersama komunitas pekerja migran Indonesia.">
+          <div class="ph" style="--ar: 1/1;">Policy Dialogue<br>PERTIMIG</div>
+        </figure>
+        <figure data-title="Diplomatic Engagement: KBRI" data-desc="Kunjungan diplomatik ke KBRI Kuala Lumpur.">
+          <div class="ph" style="--ar: 4/5;">Diplomatic Engagement<br>KBRI Kuala Lumpur</div>
+        </figure>
+        <figure data-title="Eksplorasi Dataran Merdeka" data-desc="Menjelajahi Museum Negara dan Dataran Merdeka.">
+          <div class="ph" style="--ar: 3/4;">Explore KL<br>Dataran Merdeka</div>
+        </figure>
+        <figure data-title="Tim MDIP" data-desc="Dokumentasi bersama seluruh peserta dan pembimbing.">
+          <div class="ph" style="--ar: 1/1;">Tim MDIP</div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PARTNERS ================= -->
+  <section id="partners">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Mitra Kelembagaan</span>
+        <h2>Institusi yang mendukung MDIP 2026</h2>
+      </div>
+      <div class="partners-strip glass" data-reveal-stagger>
+        <span class="mark">Universiti Kebangsaan Malaysia</span>
+        <span class="mark">IOM</span>
+        <span class="mark">PERTIMIG</span>
+        <span class="mark">North South Initiative</span>
+        <span class="mark">KBRI Kuala Lumpur</span>
+        <span class="mark">Muhammadiyah Learning Centre</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="lightbox">
+  <div class="box glass">
+    <button class="close btn-ghost btn" aria-label="Kembali">Kembali</button>
+    <div style="width:64px;height:64px;border-radius:50%;margin:0 auto var(--space-2);display:grid;place-items:center;background:linear-gradient(135deg, var(--teal), var(--gold)); font-family:var(--font-display); font-weight:700; color:var(--navy);" data-lb-swatch></div>
+    <h3 data-lb-title></h3>
+    <p style="margin-top:0.6rem; color: var(--ink-dim);" data-lb-desc></p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="assets/logo-icon.png" alt="Logo MDIP"><strong>MDIP 2026</strong></div>
+        <p style="margin-top:1rem; max-width: 32ch; color: var(--ink-dim); font-size:0.9rem;">Program Studi Hubungan Internasional, Fakultas Hukum, Ilmu Sosial, dan Ilmu Politik, Universitas Mataram.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h5>Jelajahi</h5>
+          <a href="about.html">Tentang Program</a>
+          <a href="program.html">Rundown Kegiatan</a>
+          <a href="team.html">Tim &amp; Peserta</a>
+          <a href="gallery.html">Galeri</a>
+        </div>
+        <div>
+          <h5>Kontak</h5>
+          <a href="https://www.instagram.com/mdipjourney/" target="_blank" rel="noopener noreferrer">Instagram @mdipjourney</a>
+          <a href="mailto:mdpijourney@gmail.com">mdpijourney@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Migration and Development Immersion Program, Universitas Mataram</span>
+      <span>Kuala Lumpur &amp; Melaka, Malaysia</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/particles.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

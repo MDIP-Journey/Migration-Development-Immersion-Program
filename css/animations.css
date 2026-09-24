@@ -1,0 +1,125 @@
+/* =========================================================================
+   animations.css: keyframes, staggered delays, micro-interactions
+   ========================================================================= */
+
+/* Stagger delays applied by JS via inline custom property --d, used here */
+[data-reveal-stagger] > * { transition-delay: calc(var(--d, 0) * 90ms); }
+
+/* Hero load-in sequence (non-scroll-triggered, plays once on page load) */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-logo, .hero h1, .hero-type, .hero .lede, .hero-meta, .hero-cta {
+  animation: riseIn 0.8s var(--ease) both;
+}
+.hero-logo { animation-delay: 0.05s; }
+.hero h1 { animation-delay: 0.15s; }
+.hero-type { animation-delay: 0.28s; }
+.hero .lede { animation-delay: 0.38s; }
+.hero-meta { animation-delay: 0.48s; }
+.hero-cta { animation-delay: 0.58s; }
+
+.hero-visual { animation: riseIn 1s var(--ease) both; animation-delay: 0.3s; }
+.hero-visual .ring { animation: spin 40s linear infinite; }
+.hero-visual .ring.r2 { animation-duration: 60s; animation-direction: reverse; }
+.hero-visual .ring.r3 { animation-duration: 30s; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Glow pulse used on primary buttons' pseudo-element sweep */
+.btn-primary::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: translateX(-120%);
+}
+.btn-primary:hover::after { animation: sweep 0.9s ease forwards; }
+@keyframes sweep { to { transform: translateX(120%); } }
+
+/* Accordion chevron rotation */
+.rundown-tabs button[aria-selected="true"] .d { opacity: 1; }
+
+/* Lightbox entrance */
+.lightbox .box { transform: scale(0.92); opacity: 0; transition: transform 0.35s var(--ease), opacity 0.35s var(--ease); }
+.lightbox.is-open .box { transform: scale(1); opacity: 1; }
+
+/* Page-to-page transition: falling flecks finish before the next page fades in. */
+body.page-leaving main,
+body.page-leaving .site-header,
+body.page-leaving .site-footer {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.46s ease, transform 0.46s var(--ease);
+}
+html.page-pending body main,
+html.page-pending body .site-header,
+html.page-pending body .site-footer,
+body.page-pending main,
+body.page-pending .site-header,
+body.page-pending .site-footer {
+  opacity: 0;
+  transform: translateY(14px);
+}
+body.page-entering main,
+body.page-entering .site-header,
+body.page-entering .site-footer {
+  animation: pageFadeIn 1.5s cubic-bezier(.4, 0, .2, 1) both;
+}
+body.page-entering .site-header { animation-delay: 0s; }
+body.page-entering .site-footer { animation-delay: 0.08s; }
+/* Keep scroll-reveal effects from firing underneath the whole-page entrance. */
+body.page-entering [data-reveal],
+body.page-entering [data-reveal-stagger] > * {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+@keyframes pageFadeIn {
+  0% { opacity: 0; transform: translateY(18px); }
+  62% { opacity: 0.72; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Light logo-colored flecks drift down during navigation; the page stays visible. */
+.page-dust { position: fixed; inset: 0; z-index: 3001; overflow: hidden; pointer-events: none; }
+.page-dust i {
+  position: absolute;
+  top: -8vh;
+  left: var(--x);
+  width: var(--size);
+  height: calc(var(--size) * 1.8);
+  border-radius: 999px;
+  background: var(--dust-color);
+  opacity: 0;
+  filter: blur(0.4px);
+  animation: dustFall var(--duration) var(--delay) cubic-bezier(.3,.65,.4,1) both;
+}
+@keyframes dustFall {
+  0% { opacity: 0; transform: translate3d(0,-4vh,0) rotate(0deg); }
+  12% { opacity: 0.68; }
+  78% { opacity: 0.48; }
+  100% { opacity: 0; transform: translate3d(var(--drift),110vh,0) rotate(300deg); }
+}
+
+/* Tilt-card 3D hover, transform set inline via JS for pointer tracking,
+   this just enables perspective on the grid container */
+.grid { perspective: 1200px; }
+
+/* SDG / stat number count-up support: JS toggles this class when in view */
+.count-target { font-variant-numeric: tabular-nums; }
+
+/* Subtle floating decoration for section backgrounds */
+.deco-line {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Reduced motion: strip decorative loops but keep instant states */
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo, .hero h1, .hero-type, .hero .lede, .hero-meta, .hero-cta, .hero-visual,
+  .hero-visual .ring { animation: none !important; }
+  body.page-entering main, body.page-entering .site-header, body.page-entering .site-footer { animation-duration: 0.01ms; }
+  body.page-leaving main, body.page-leaving .site-header, body.page-leaving .site-footer { transition-duration: 0.01ms; }
+  .page-dust { display: none; }
+}
