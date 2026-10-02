@@ -376,6 +376,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   transition: transform 0.15s ease, border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
   will-change: transform;
 }
+.sdg-card, .institution-card, .partner-directory-card, .publication-card,
+.team-lead-card, .division-card, .supervisor-card {
+  transition: transform 0.15s ease, border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  will-change: transform;
+}
 .tilt-card:hover { border-color: rgba(233,196,106,0.35); box-shadow: 0 20px 45px -20px rgba(0,0,0,0.55); }
 .tilt-card .num { font-family: var(--font-display); font-size: 0.85rem; color: var(--teal-bright); }
 .tilt-card h3 { margin-top: 0.7rem; font-size: 1.15rem; }

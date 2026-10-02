@@ -3,9 +3,12 @@
    rundown accordion/tabs, gallery lightbox, active nav highlighting
    ========================================================================= */
 (function () {
+  // Apply the same pointer-following tilt to every card-shaped component.
+  const cardSelector = '.glass, .tilt-card, .sdg-card, .institution-card, .partner-directory-card, .publication-card, .team-lead-card, .division-card, .supervisor-card, .masonry figure';
+
   /* ---- Press feedback for cards and controls --------------------------*/
   document.addEventListener('pointerdown', (e) => {
-    const target = e.target.closest('button, .tilt-card, .masonry figure');
+    const target = e.target.closest(`button, ${cardSelector}, .masonry figure`);
     if (!target) return;
     target.classList.remove('is-pressed');
     requestAnimationFrame(() => target.classList.add('is-pressed'));
@@ -60,7 +63,7 @@
     }
     trail();
 
-    document.querySelectorAll('a, button, .tilt-card, .masonry figure').forEach((el) => {
+    document.querySelectorAll(`a, button, ${cardSelector}, .masonry figure`).forEach((el) => {
       el.addEventListener('mouseenter', () => ring.classList.add('is-active'));
       el.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
     });
@@ -88,14 +91,16 @@
   }
 
   /* ---- Tilt-card 3D hover ------------------------------------------- */
-  document.querySelectorAll('.tilt-card').forEach((card) => {
+  document.querySelectorAll(cardSelector).forEach((card) => {
+    let rect;
+    card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
     card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
+      if (!rect) rect = card.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = `rotateY(${x * 7}deg) rotateX(${-y * 7}deg) translateY(-4px)`;
+      card.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg) translateY(-4px)`;
     });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; rect = null; });
   });
 
   /* ---- Rundown tabs / accordion (program.html) ----------------------- */
