@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/animations.css">
-<script>try { if (sessionStorage.getItem('mdipPageEnterAt')) document.documentElement.classList.add('page-pending'); } catch (_) {}</script>
+<script>try { const pending = sessionStorage.getItem('mdipPageEnterAt'); if (pending) document.documentElement.classList.add('page-pending'); else if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('intro-pending'); } catch (_) {}</script>
 </head>
 <body>
 
@@ -31,7 +31,7 @@
       <a href="gallery.html">Galeri</a>
       <a href="resources.html">Lokasi</a><a href="faq.html">FAQ</a><a href="publications.html">Publikasi</a>
     </nav>
-    <button class="nav-toggle" aria-label="Buka menu navigasi" aria-expanded="false">☰</button>
+    <button class="nav-toggle" aria-label="Buka menu navigasi" aria-expanded="false">Ã¢ËœÂ°</button>
   </div>
 </header>
 
@@ -113,7 +113,7 @@
       <div class="team-photo-controls">
         <button class="team-photo-prev" type="button" aria-label="Foto sebelumnya">&#8592;</button>
         <span class="team-photo-counter" aria-live="polite"></span>
-        <button class="team-photo-next" type="button" aria-label="Foto berikutnya">→</button>
+        <button class="team-photo-next" type="button" aria-label="Foto berikutnya">Ã¢â€ â€™</button>
       </div>
     </div>
   </dialog>
@@ -144,7 +144,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Migration and Development Immersion Program, Universitas Mataram</span>
+      <span>Ã‚Â© 2026 Migration and Development Immersion Program, Universitas Mataram</span>
       <span>Kuala Lumpur &amp; Melaka, Malaysia</span>
     </div>
   </div>

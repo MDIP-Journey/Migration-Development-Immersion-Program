@@ -48,6 +48,34 @@
       document.body.classList.add('page-pending');
     }
   } catch (_) {}
+
+  /* ---- First-visit logo intro --------------------------------------- */
+  if (document.documentElement.classList.contains('intro-pending')) {
+    const intro = document.createElement('div');
+    intro.className = 'site-intro';
+    intro.setAttribute('aria-hidden', 'true');
+    const mark = document.createElement('img');
+    mark.className = 'site-intro-mark';
+    mark.src = 'assets/logo-icon.png';
+    mark.alt = '';
+    intro.appendChild(mark);
+    document.body.prepend(intro);
+
+    let introFinished = false;
+    const finishIntro = () => {
+      if (introFinished) return;
+      introFinished = true;
+      intro.remove();
+      document.documentElement.classList.remove('intro-pending');
+      document.body.classList.add('intro-entering');
+      window.setTimeout(() => document.body.classList.remove('intro-entering'), 1050);
+    };
+    mark.addEventListener('animationend', (event) => {
+      if (event.animationName === 'logoIntroFade') finishIntro();
+    });
+    window.setTimeout(finishIntro, 1850);
+  }
+
   let isNavigating = false;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isInternalLink = (a) => {

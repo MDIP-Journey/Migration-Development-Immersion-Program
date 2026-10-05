@@ -26,6 +26,45 @@
 .hero-visual .ring.r3 { animation-duration: 30s; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* First visit: show the transparent icon, then fade the site in beneath it. */
+html.intro-pending body > :not(.site-intro) {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+.site-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  display: grid;
+  place-items: center;
+  background: var(--navy);
+}
+.site-intro-mark {
+  display: block;
+  width: clamp(132px, 22vw, 210px);
+  height: auto;
+  opacity: 0;
+  animation: logoIntroFade 1.65s ease-in-out both;
+}
+@keyframes logoIntroFade {
+  0% { opacity: 0; transform: scale(.94); }
+  22% { opacity: 1; transform: scale(1); }
+  58% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.025); }
+}
+body.intro-entering > .site-header,
+body.intro-entering > main,
+body.intro-entering > .site-footer {
+  animation: contentFadeIn .9s ease both;
+}
+body.intro-entering > .site-header { animation-delay: 0s; }
+body.intro-entering > main { animation-delay: .08s; }
+body.intro-entering > .site-footer { animation-delay: .14s; }
+@keyframes contentFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* Glow pulse used on primary buttons' pseudo-element sweep */
 .btn-primary::after {
   content: "";
