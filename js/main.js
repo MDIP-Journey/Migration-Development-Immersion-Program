@@ -123,12 +123,16 @@
   if (lightbox) {
     const lbTitle = lightbox.querySelector('[data-lb-title]');
     const lbDesc = lightbox.querySelector('[data-lb-desc]');
-    const lbSwatch = lightbox.querySelector('[data-lb-swatch]');
+    const lbPhoto = lightbox.querySelector('[data-lb-photo]');
     document.querySelectorAll('.masonry figure').forEach((fig) => {
       fig.addEventListener('click', () => {
         lbTitle.textContent = fig.dataset.title || '';
         lbDesc.textContent = fig.dataset.desc || '';
-        if (lbSwatch) lbSwatch.textContent = fig.dataset.title ? fig.dataset.title.slice(0, 1): '';
+        const photo = fig.querySelector('img');
+        if (lbPhoto && photo) {
+          lbPhoto.src = photo.src;
+          lbPhoto.alt = photo.alt;
+        }
         lightbox.classList.add('is-open');
       });
     });
