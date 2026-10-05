@@ -4,7 +4,7 @@
    ========================================================================= */
 (function () {
   // Apply the same pointer-following tilt to every card-shaped component.
-  const cardSelector = '.glass, .tilt-card, .sdg-card, .institution-card, .partner-directory-card, .publication-card, .team-lead-card, .division-card, .supervisor-card, .masonry figure';
+  const cardSelector = '.glass, .tilt-card, .sdg-card, .institution-card, .partner-directory-card, .publication-card, .team-lead-card, .division-card, .supervisor-card, .timeline-item, .agenda-row, .masonry figure, .location-panel, .location-item, .route-link, .faq-item, .faq-contact, .resource-cta, .map-frame';
 
   /* ---- Press feedback for cards and controls --------------------------*/
   document.addEventListener('pointerdown', (e) => {
@@ -92,15 +92,19 @@
 
   /* ---- Tilt-card 3D hover ------------------------------------------- */
   document.querySelectorAll(cardSelector).forEach((card) => {
+    card.classList.add('tilt-interactive');
     let rect;
-    card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
-    card.addEventListener('mousemove', (e) => {
+    card.addEventListener('pointerenter', (e) => {
+      if (e.pointerType !== 'touch') rect = card.getBoundingClientRect();
+    });
+    card.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'touch') return;
       if (!rect) rect = card.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
       card.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg) translateY(-4px)`;
     });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; rect = null; });
+    card.addEventListener('pointerleave', () => { card.style.transform = ''; rect = null; });
   });
 
   /* ---- Rundown tabs / accordion (program.html) ----------------------- */

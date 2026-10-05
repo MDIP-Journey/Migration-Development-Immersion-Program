@@ -224,6 +224,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
     transform: translateY(-12px);
     opacity: 0;
     pointer-events: none;
+    max-height: calc(100vh - 104px);
+    max-height: calc(100dvh - 104px);
+    overflow-y: auto;
     transition: all 0.3s var(--ease);
   }
   .nav-links.is-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
@@ -381,7 +384,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   transition: transform 0.15s ease, border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
   will-change: transform;
 }
-.tilt-card:hover { border-color: rgba(233,196,106,0.35); box-shadow: 0 20px 45px -20px rgba(0,0,0,0.55); }
+.location-panel, .location-item, .route-link, .faq-item, .faq-contact,
+.resource-cta, .map-frame, .timeline-item, .agenda-row {
+  transition: transform 0.15s ease, border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background-color 0.3s var(--ease);
+  will-change: transform;
+}
+.tilt-card:hover, .tilt-interactive:hover {
+  border-color: rgba(233,196,106,0.35);
+  box-shadow: 0 20px 45px -20px rgba(0,0,0,0.55);
+}
 .tilt-card .num { font-family: var(--font-display); font-size: 0.85rem; color: var(--teal-bright); }
 .tilt-card h3 { margin-top: 0.7rem; font-size: 1.15rem; }
 .tilt-card p { margin-top: 0.5rem; color: var(--ink-dim); font-size: 0.93rem; }
@@ -778,4 +789,19 @@ button, .nav-links a, .footer-links a, .tilt-card, .masonry figure {
 @media (max-width: 700px) {
   section { padding: var(--space-5) 0; }
   .hero { padding-top: 6.5rem; }
+}
+
+@media (max-width: 600px) {
+  .container { padding-inline: 1rem; }
+  .site-header .nav-inner { padding-inline: 0.8rem; }
+  .brand { gap: 0.45rem; font-size: 0.96rem; }
+  .brand img { height: 30px; }
+  .brand small { font-size: 0.56rem; }
+  .hero { min-height: auto; padding-bottom: var(--space-4); }
+  .hero-cta { flex-direction: column; align-items: stretch; }
+  .hero-cta .btn { width: 100%; justify-content: center; }
+  .stat-strip { gap: var(--space-3); }
+  .footer-links { gap: var(--space-3); }
+  .footer-bottom { flex-direction: column; }
+  .map-caption { max-width: calc(100% - 2rem); border-radius: 12px; }
 }
