@@ -798,6 +798,22 @@ button, .nav-links a, .footer-links a, .tilt-card, .masonry figure {
 
 @media (max-width: 600px) {
   .about-intro-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
+  #partners .section-head { margin-bottom: var(--space-3); }
+  .partners-strip {
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    padding: 0.6rem 1.25rem;
+  }
+  .partners-strip .mark {
+    display: block;
+    width: 100%;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--line);
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+  .partners-strip .mark:last-child { border-bottom: 0; }
   .container { padding-inline: 1rem; }
   .site-header .nav-inner { padding-inline: 0.8rem; }
   .brand { gap: 0.45rem; font-size: 0.96rem; }
