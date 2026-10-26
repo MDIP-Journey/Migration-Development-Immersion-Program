@@ -12,12 +12,24 @@
           entry.target.classList.add('is-visible');
 
           // Assign stagger index to children the first time they appear
-          if (entry.target.hasAttribute('data-reveal-stagger')) {
-            Array.from(entry.target.children).forEach((child, i) => {
-              child.style.setProperty('--d', i);
-            });
-          }
-          io.unobserve(entry.target);
+          const el = entry.target;
+          const isStagger = el.hasAttribute('data-reveal-stagger');
+          const children = isStagger ? Array.from(el.children) : [];
+          children.forEach((child, i) => child.style.setProperty('--d', i));
+          io.unobserve(el);
+
+          // Once the reveal has played, drop its transition rules. Otherwise the
+          // stagger delay and the slow reveal timing leak into hover effects.
+          const doneAfter = isStagger ? 650 + Math.max(0, children.length - 1) * 90 : 750;
+          window.setTimeout(() => {
+            if (isStagger) {
+              children.forEach((child) => child.style.removeProperty('--d'));
+              el.removeAttribute('data-reveal-stagger');
+            } else {
+              el.removeAttribute('data-reveal');
+            }
+            el.classList.remove('is-visible');
+          }, doneAfter);
         }
       });
     }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
@@ -68,7 +80,7 @@
       intro.remove();
       document.documentElement.classList.remove('intro-pending');
       document.body.classList.add('intro-entering');
-      window.setTimeout(() => document.body.classList.remove('intro-entering'), 1050);
+      window.setTimeout(() => document.body.classList.remove('intro-entering'), 850);
     };
     mark.addEventListener('animationend', (event) => {
       if (event.animationName === 'logoIntroFade') finishIntro();
@@ -103,15 +115,15 @@
       const fleck = document.createElement('i');
       fleck.style.setProperty('--x', `${Math.random() * 100}%`);
       fleck.style.setProperty('--size', `${3 + Math.random() * 5}px`);
-      fleck.style.setProperty('--duration', `${0.68 + Math.random() * 0.22}s`);
-      fleck.style.setProperty('--delay', `${Math.random() * 0.08}s`);
+      fleck.style.setProperty('--duration', `${0.5 + Math.random() * 0.14}s`);
+      fleck.style.setProperty('--delay', `${Math.random() * 0.06}s`);
       fleck.style.setProperty('--drift', `${Math.round((Math.random() - 0.5) * 100)}px`);
       fleck.style.setProperty('--dust-color', colors[i % colors.length]);
       dust.appendChild(fleck);
     }
     document.body.appendChild(dust);
     document.body.classList.add('page-leaving');
-    const transitionTime = reducedMotion ? 0: 1000;
+    const transitionTime = reducedMotion ? 0 : 700;
     try { sessionStorage.setItem('mdipPageEnterAt', String(Date.now() + transitionTime)); } catch (_) {}
     window.setTimeout(() => { window.location.assign(url.href); }, transitionTime);
   });
@@ -122,7 +134,7 @@
       document.body.classList.remove('page-leaving');
       document.querySelector('.page-dust')?.remove();
       document.body.classList.add('page-entering');
-      window.setTimeout(() => document.body.classList.remove('page-entering'), 1650);
+      window.setTimeout(() => document.body.classList.remove('page-entering'), 800);
       return;
     }
     if (!incomingAt) return;
@@ -131,7 +143,7 @@
       document.body.classList.remove('page-pending');
       document.body.offsetWidth;
       document.body.classList.add('page-entering');
-      window.setTimeout(() => document.body.classList.remove('page-entering'), 1650);
+      window.setTimeout(() => document.body.classList.remove('page-entering'), 800);
     }, Math.max(0, incomingAt - Date.now()));
   });
 })();

@@ -3,12 +3,15 @@
    rundown accordion/tabs, gallery lightbox, active nav highlighting
    ========================================================================= */
 (function () {
-  // Apply the same pointer-following tilt to every card-shaped component.
-  const cardSelector = '.glass, .tilt-card, .sdg-card, .institution-card, .partner-directory-card, .publication-card, .team-lead-card, .division-card, .supervisor-card, .timeline-item, .agenda-row, .masonry figure, .location-panel, .location-item, .route-link, .faq-item, .faq-contact, .resource-cta, .map-frame';
+  // Only standalone cards tilt. Large panels, rows, maps and dialogs stay still
+  // so the motion feels the same everywhere it appears.
+  const cardSelector = '.tilt-card:not([data-static]), .sdg-card, .institution-card, .partner-directory-card, .publication-card, .team-lead-card, .division-card, .supervisor-card, .masonry figure';
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---- Press feedback for cards and controls --------------------------*/
+  /* ---- Press feedback for cards (buttons use the CSS :active scale) ----*/
   document.addEventListener('pointerdown', (e) => {
-    const target = e.target.closest(`button, ${cardSelector}, .masonry figure`);
+    if (reducedMotion) return;
+    const target = e.target.closest(`${cardSelector}, .location-item, .route-link, .faq-item`);
     if (!target) return;
     target.classList.remove('is-pressed');
     requestAnimationFrame(() => target.classList.add('is-pressed'));
@@ -63,7 +66,7 @@
     }
     trail();
 
-    document.querySelectorAll(`a, button, ${cardSelector}, .masonry figure`).forEach((el) => {
+    document.querySelectorAll(`a, button, summary, ${cardSelector}`).forEach((el) => {
       el.addEventListener('mouseenter', () => ring.classList.add('is-active'));
       el.addEventListener('mouseleave', () => ring.classList.remove('is-active'));
     });
@@ -93,6 +96,7 @@
   /* ---- Tilt-card 3D hover ------------------------------------------- */
   document.querySelectorAll(cardSelector).forEach((card) => {
     card.classList.add('tilt-interactive');
+    if (reducedMotion) return;
     let rect;
     card.addEventListener('pointerenter', (e) => {
       if (e.pointerType !== 'touch') rect = card.getBoundingClientRect();
@@ -102,7 +106,9 @@
       if (!rect) rect = card.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg) translateY(-4px)`;
+      // Wide cards tilt less, so every card moves about the same distance.
+      const strength = 6 * Math.min(1, 420 / rect.width);
+      card.style.transform = `perspective(900px) rotateY(${x * strength}deg) rotateX(${-y * strength}deg) translateY(-4px)`;
     });
     card.addEventListener('pointerleave', () => { card.style.transform = ''; rect = null; });
   });

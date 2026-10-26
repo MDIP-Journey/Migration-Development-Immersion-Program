@@ -55,7 +55,7 @@ html.intro-pending body > :not(.site-intro) {
 body.intro-entering > .site-header,
 body.intro-entering > main,
 body.intro-entering > .site-footer {
-  animation: contentFadeIn .9s ease both;
+  animation: contentFadeIn .7s ease both;
 }
 body.intro-entering > .site-header { animation-delay: 0s; }
 body.intro-entering > main { animation-delay: .08s; }
@@ -87,8 +87,8 @@ body.page-leaving main,
 body.page-leaving .site-header,
 body.page-leaving .site-footer {
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.46s ease, transform 0.46s var(--ease);
+  transform: translateY(14px);
+  transition: opacity 0.45s ease, transform 0.45s var(--ease);
 }
 html.page-pending body main,
 html.page-pending body .site-header,
@@ -102,7 +102,7 @@ body.page-pending .site-footer {
 body.page-entering main,
 body.page-entering .site-header,
 body.page-entering .site-footer {
-  animation: pageFadeIn 1.5s cubic-bezier(.4, 0, .2, 1) both;
+  animation: pageFadeIn 0.7s var(--ease) both;
 }
 body.page-entering .site-header { animation-delay: 0s; }
 body.page-entering .site-footer { animation-delay: 0.08s; }
@@ -114,8 +114,7 @@ body.page-entering [data-reveal-stagger] > * {
   transition: none;
 }
 @keyframes pageFadeIn {
-  0% { opacity: 0; transform: translateY(18px); }
-  62% { opacity: 0.72; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -140,9 +139,6 @@ body.page-entering [data-reveal-stagger] > * {
   100% { opacity: 0; transform: translate3d(var(--drift),110vh,0) rotate(300deg); }
 }
 
-/* Tilt-card 3D hover, transform set inline via JS for pointer tracking,
-   this just enables perspective on the grid container */
-.grid { perspective: 1200px; }
 
 /* SDG / stat number count-up support: JS toggles this class when in view */
 .count-target { font-variant-numeric: tabular-nums; }
